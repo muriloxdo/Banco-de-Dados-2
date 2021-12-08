@@ -43,7 +43,7 @@ void main(List<String> arguments) async {
  
 /*
   Stopwatch stopwatch = new Stopwatch()..start();
-  print('INSERINDO EXPLICITA...');
+  print('INSERINDO IMPLICITA...');
   // Populate customers table
   await conn.transaction((ctx) async {
     final mockStr = await File('../csvjson.json').readAsString();
@@ -66,11 +66,11 @@ void main(List<String> arguments) async {
       });
     }
   });
-  print('EXPLICITA Inserida em: ${stopwatch.elapsed}');
+  print('IMPLICITA Inserida em: ${stopwatch.elapsed}');
 */
 
   Stopwatch stopwatch = new Stopwatch()..start();
-  print('INSERINDO IMPLICITA...');
+  print('INSERINDO EXPLICITA...');
   await conn.transaction((ctx) async {
     final mockStr = await File('../csvjson.json').readAsString();
     final mockData = json.decode(mockStr);
@@ -95,7 +95,7 @@ void main(List<String> arguments) async {
     //print('$quero');
     await ctx.query(quero);
   });
-  print('IMPLICITA Inserida em: ${stopwatch.elapsed}');
+  print('EXPLICITA Inserida em: ${stopwatch.elapsed}');
 
 
   await conn.close();
