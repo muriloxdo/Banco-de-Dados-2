@@ -1,7 +1,6 @@
 import re;
 import sys;
 import json;
-import mysql.connector;
 import psycopg2;
 
 conn = psycopg2.connect(
@@ -62,9 +61,6 @@ while i != maiorId:
     
     i = idAtual
     k += 1
-
-print(inserts)
-print("---------")
 
 stringCreateTable = "CREATE TABLE IF NOT EXISTS redo (id INT,"
 
