@@ -78,3 +78,25 @@ for stringInsert in inserts:
     cur.execute(stringInsert)
     
 conn.commit()
+#sys.exit("Sartei")
+
+#--------------------------------------------------------------------------------------------------------------
+
+#começo da lógica de REDO -------------------------------------------------------------------------------------
+ultimoStart = None
+ultimoEnd = None
+flagStart = None
+
+#verifica qual são os últimos start e end checkpoints
+for i in range(0,len(arquivolist),1):
+    if(startckpt.search(arquivolist[i])): 
+        auxStart = i
+        flagStart = True            #flag para somente mudar o start se existe um end após
+    if(endckpt.search(arquivolist[i])): 
+        if(flagStart):
+            ultimoEnd = i
+            ultimoStart = auxStart
+            flagStart = None
+
+    #append nas transações existente
+    if(checkvalue.search(arquivolist[i])): TRANSACOES.append(extracT.findall(arquivolist[i])[0]) if extracT.findall(arquivolist[i])[0] not in TRANSACOES else TRANSACOES
