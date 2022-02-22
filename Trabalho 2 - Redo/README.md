@@ -10,7 +10,7 @@ Neste Trabalho abordaremos a construção da representação de um REDO de um lo
 
 
 
-######## o jogo
+######## o jooj
 ## PERDEU
 
 
