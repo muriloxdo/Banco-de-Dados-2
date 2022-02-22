@@ -12,3 +12,8 @@ conn = psycopg2.connect(
 )
 
 cur = conn.cursor()
+
+arquivo = open('teste02.txt', 'r')
+arquivolist = list(arquivo)     
+REDO = []                       
+TRANSACOES = []                 
