@@ -111,3 +111,42 @@ else:
         if commit.search(linha):  #Procura commit
             REDO.append(extracT.findall(linha)[0])
 
+
+#Printando quem aplicou ou não REDO    
+for item in TRANSACOES: 
+    if(item in REDO): print("Aplicou Redo: "+item)
+    else: print("Não aplicou Redo: "+item)
+
+
+#cria uma lista de atual
+listaUpdate = {}
+for redo in REDO:
+    for j in range(len(arquivolist)-1, -1, -1):
+        linha = arquivolist[j]
+
+        if((extracT.findall(linha)[0]==redo) and ckpt.search(linha)==None and checkvalue.search(linha)): #verifica se o T está no vetor REDO, não é checkpoint e se é uma linha de valores <T1,1,A,30>
+            try: 
+                listaUpdate[extracT.findall(linha)[0]+"-"+extracT.findall(linha)[1]+"-"+extracT.findall(linha)[2]]
+            except: 
+                listaUpdate[extracT.findall(linha)[0]+"-"+extracT.findall(linha)[1]+"-"+extracT.findall(linha)[2]] = {'id': extracT.findall(linha)[1],'atributo': extracT.findall(linha)[2],'valor': words.findall(linha)[3]}
+
+print(json.dumps(listaUpdate, sort_keys=True, indent=4))
+
+for item in listaUpdate: #Iniciar primeiros valores das variáveis (A B C...)
+    objeto = listaUpdate[item]
+    select = "SELECT "+objeto['atributo']+" FROM redo WHERE id="+objeto['id']
+    cur.execute(select)
+    myresult = cur.fetchall()
+
+    for x in myresult:
+        if(int(x[0])!=int(objeto['valor'])):
+            update = "UPDATE redo SET "+objeto['atributo']+"="+objeto['valor']+" WHERE id="+objeto['id']
+            #print(update)
+            cur.execute(update)
+
+conn.commit()
+
+arquivo.close()
+
+conn.close()
+
