@@ -100,3 +100,14 @@ for i in range(0,len(arquivolist),1):
 
     #append nas transações existente
     if(checkvalue.search(arquivolist[i])): TRANSACOES.append(extracT.findall(arquivolist[i])[0]) if extracT.findall(arquivolist[i])[0] not in TRANSACOES else TRANSACOES
+
+#quais transações fazem redo
+if ultimoStart!=None and ultimoEnd!=None: 
+    for i in range(ultimoStart, len(arquivolist), 1): #do fim do arquivo até o primeiro Start CKPT
+        if commit.search(arquivolist[i]):  #Procura commit
+            REDO.append(extracT.findall(arquivolist[i])[0])
+else:
+    for linha in arquivolist: #Verificar os casos e criar as listas de REDO
+        if commit.search(linha):  #Procura commit
+            REDO.append(extracT.findall(linha)[0])
+
