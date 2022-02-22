@@ -13,7 +13,8 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-arquivo = open('teste02.txt', 'r')
+arquivo = open('teste02.txt', 'r')      #cria uma lista com o .txt
 arquivolist = list(arquivo)     
-REDO = []                       
-TRANSACOES = []                 
+REDO = []                       #salva quem vai ser feito REDO         
+TRANSACOES = []                 #todas as transações  
+
