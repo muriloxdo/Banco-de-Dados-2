@@ -1,0 +1,14 @@
+import re;
+import sys;
+import json;
+import mysql.connector;
+import psycopg2;
+
+conn = psycopg2.connect(
+    host="localhost",
+    database="bd2",
+    user="postgres",
+    password="ola"
+)
+
+cur = conn.cursor()
