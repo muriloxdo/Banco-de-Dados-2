@@ -12,7 +12,7 @@ conn = psycopg2.connect(    #configuracao para acessar o banco
 
 cur = conn.cursor()
 
-arquivo = open('teste02.txt', 'r')      #cria uma lista com o .txt
+arquivo = open('entradaLog2', 'r')      #cria uma lista com o .txt
 arquivolist = list(arquivo)     
 REDO = []                       #salva quem vai ser feito REDO         
 TRANSACOES = []                 #todas as transações  
@@ -38,7 +38,6 @@ variaveisCreate = [] #Array das varíaveis que devem ser iniciadas
 for item in arquivolist:
     if(idfind.search(item)):
         countID+=1
-        print(item[0])
         variaveisCreate.append(item[0]) if item[0] not in variaveisCreate else variaveisCreate ## Adiciona somente se não está no vetor
         if int(item[2]) > int(maiorId):  #Busca pelo maior Id do arquivo
             maiorId = item[2]
@@ -72,7 +71,6 @@ for i in range(0,len(variaveisCreate),1):
     if i==len(variaveisCreate)-1: stringCreateTable += " "+variaveisCreate[i]+" INT)"
     else: stringCreateTable += " "+variaveisCreate[i]+" INT,"
 
-print(stringCreateTable)
 cur.execute("DROP TABLE IF EXISTS redo")
 cur.execute(stringCreateTable)
 
